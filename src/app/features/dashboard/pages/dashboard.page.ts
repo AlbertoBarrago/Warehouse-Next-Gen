@@ -63,7 +63,7 @@ import { AuthService } from '@core/auth/auth.service';
         </section>
 
         <section class="quick-actions">
-          <h2>Quick Actions</h2>
+          <h2 class="text-white">Quick Actions</h2>
           <div class="actions-grid">
             <a routerLink="/inventory/adjustment" class="action-card">
               <div class="action-icon">
@@ -199,6 +199,10 @@ import { AuthService } from '@core/auth/auth.service';
         font-weight: 600;
         color: #1f2937;
       }
+    }
+    
+    .quick-actions h2 {
+      color: white
     }
     
     .actions-grid {
