@@ -1,4 +1,4 @@
-# Warehouse Next-Gen - Architecture Documentation
+# Playground Angualar 21 – Architecture Documentation
 
 ## Project Overview
 
