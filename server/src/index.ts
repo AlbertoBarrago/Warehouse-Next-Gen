@@ -1,13 +1,13 @@
 import Fastify from 'fastify';
 import {
   corsPlugin,
-  swaggerPlugin,
   helmetPlugin,
   jwtPlugin,
   rateLimitPlugin,
   sensiblePlugin,
+  swaggerPlugin,
 } from './plugins';
-import { authRoutes, productRoutes } from './routes';
+import { authRoutes, productRoutes, healthRoutes } from './routes';
 
 const HOST = process.env.HOST || '0.0.0.0';
 const PORT = Number(process.env.PORT) || 3000;
@@ -31,31 +31,14 @@ async function buildApp() {
 
   // Register plugins in order
   await fastify.register(sensiblePlugin);
-  await fastify.register(swaggerPlugin);
   await fastify.register(corsPlugin);
   await fastify.register(helmetPlugin);
   await fastify.register(rateLimitPlugin);
+  await fastify.register(swaggerPlugin);
   await fastify.register(jwtPlugin);
 
-  // Health check endpoint
-  fastify.get('/health', {
-    schema: {
-      tags: ['Health'],
-      summary: 'Health check endpoint',
-      response: {
-        200: {
-          type: 'object',
-          properties: {
-            status: { type: 'string' },
-            timestamp: { type: 'string' },
-          },
-        },
-      },
-    },
-  }, async () => ({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-  }));
+  // Health route /health
+  await fastify.register(healthRoutes);
 
   // Register routes with /api prefix
   await fastify.register(authRoutes, { prefix: '/api/auth' });
@@ -94,4 +77,6 @@ async function start() {
   }
 }
 
-start();
+start().then((_) => console.log(
+    `Server started successfully`
+));

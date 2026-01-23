@@ -1,12 +1,14 @@
 import type { FastifyInstance } from 'fastify';
+import fp from 'fastify-plugin';
 import swagger from '@fastify/swagger';
 import swaggerUi from '@fastify/swagger-ui';
 
 /**
  * Swagger/OpenAPI documentation plugin
  */
-export async function swaggerPlugin(fastify: FastifyInstance): Promise<void> {
+async function swaggerPluginImpl(fastify: FastifyInstance): Promise<void> {
   await fastify.register(swagger, {
+    mode: 'dynamic',
     openapi: {
       openapi: '3.0.0',
       info: {
@@ -33,10 +35,10 @@ export async function swaggerPlugin(fastify: FastifyInstance): Promise<void> {
         { name: 'Auth', description: 'Authentication endpoints' },
         { name: 'Products', description: 'Product management endpoints' },
         { name: 'Stock', description: 'Stock adjustment endpoints' },
+        { name: 'Health', description: 'System health endpoints' },
       ],
     },
   });
-
   await fastify.register(swaggerUi, {
     routePrefix: '/documentation',
     uiConfig: {
@@ -46,3 +48,7 @@ export async function swaggerPlugin(fastify: FastifyInstance): Promise<void> {
     staticCSP: true,
   });
 }
+
+export const swaggerPlugin = fp(swaggerPluginImpl, {
+  name: 'swagger-plugin',
+});
