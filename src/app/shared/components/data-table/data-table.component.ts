@@ -3,9 +3,7 @@ import {
   ChangeDetectionStrategy,
   input,
   output,
-  computed,
-  contentChild,
-  TemplateRef,
+  computed
 } from '@angular/core';
 import { LoadingSpinnerComponent } from '../loading-spinner/loading-spinner.component';
 

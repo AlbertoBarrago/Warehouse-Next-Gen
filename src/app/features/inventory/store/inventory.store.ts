@@ -93,7 +93,7 @@ export const InventoryStore = signalStore(
     ),
 
     /**
-     * Check if selected product is loading
+     * Check if the selected product is loading
      */
     isLoadingSelectedProduct: computed(() => 
       store.selectedProductLoadingState() === 'loading'

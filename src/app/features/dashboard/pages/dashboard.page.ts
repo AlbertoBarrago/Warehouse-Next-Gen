@@ -354,6 +354,6 @@ export class DashboardPage {
 
   async logout(): Promise<void> {
     await this.auth.logout();
-    this.router.navigate(['/auth/login']);
+    void this.router.navigate(['/auth/login']);
   }
 }
